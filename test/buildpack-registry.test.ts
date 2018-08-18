@@ -4,7 +4,7 @@ nock.disableNetConnect()
 
 import {BuildpackRegistry} from '../src/buildpack-registry'
 
-import {Fixture} from './helpers/fixture'
+import {Fixture} from '../src/test/helpers/fixture'
 
 describe('buildpack-registry#requiresTwoFactor', () => {
   it('returns true when set', async function () {
