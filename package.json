@@ -2,9 +2,10 @@
   "name": "buildpack-registry",
   "version": "1.0.0",
   "description": "Node.js/TypeScript library for interfacing with the Heroku Buildpack Registry",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/buildpack-registry.js",
+  "types": "dist/buildpack-registry.d.ts",
   "scripts": {
+    "build": "tsc",
     "test": "nyc mocha --forbid-only \"test/**/*.test.ts\"",
     "posttest": "tsc -p test --noEmit && tslint -p test -t stylish"
   },
@@ -37,5 +38,8 @@
   },
   "engines": {
     "node": ">= 8.0.0"
-  }
+  },
+  "files": [
+    "/dist"
+  ]
 }

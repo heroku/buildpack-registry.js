@@ -1,6 +1,8 @@
 import {Result} from 'true-myth'
 
-import {BuildpackBody, BuildpackRegistryApi as Api, HeaderOptions, ReadmeBody, Response, RevisionBody, RevisionStatus} from './buildpack-registry-api'
+import {BuildpackBody, BuildpackRegistryApi as Api, Category, HeaderOptions, ReadmeBody, Response, RevisionBody, RevisionStatus} from './buildpack-registry-api'
+
+export {BuildpackBody, Category, ReadmeBody, RevisionBody, RevisionStatus}
 
 const BUILDPACK_FORMATTING_MESSAGE = "To specify a buildpack, please format it like the following: namespace/name (e.g. heroku/ruby). Also names can only contain letters, numbers, '_', and '-'."
 
