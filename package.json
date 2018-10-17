@@ -1,5 +1,5 @@
 {
-  "name": "buildpack-registry",
+  "name": "@heroku/buildpack-registry",
   "version": "1.0.0",
   "description": "Node.js/TypeScript library for interfacing with the Heroku Buildpack Registry",
   "main": "dist/index.js",
