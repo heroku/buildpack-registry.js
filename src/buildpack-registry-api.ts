@@ -1,6 +1,6 @@
-import fetch, {Headers, RequestInit, Response} from 'node-fetch'
+import fetch, { Headers, RequestInit, Response } from 'node-fetch'
 
-export {Response} from 'node-fetch'
+export { Response } from 'node-fetch'
 
 export type IBody = {
   [property: string]: string
@@ -85,7 +85,7 @@ export class BuildpackRegistryApi {
   }
 
   headers(options: HeaderOptions = {}): Headers {
-    let defaultHeaders: {[property: string]: string} = {
+    let defaultHeaders: { [property: string]: string } = {
       Accept: 'application/vnd.heroku+json; version=3.buildpack-registry',
       'Content-Type': 'application/json'
     }
@@ -99,7 +99,7 @@ export class BuildpackRegistryApi {
 
     if (process.env.HEROKU_HEADERS) {
       let herokuHeaders = JSON.parse(process.env.HEROKU_HEADERS)
-      return new Headers({...defaultHeaders, herokuHeaders})
+      return new Headers({ ...defaultHeaders, herokuHeaders })
     } else {
       return new Headers(defaultHeaders)
     }
@@ -117,9 +117,9 @@ export class BuildpackRegistryApi {
     return fetch(`${BuildpackRegistryApi.url()}${path}`, options)
   }
 
-  async get(path: string): Promise<Response> {
-    return fetch(`${BuildpackRegistryApi.url()}${path}`, {
-      headers: this.headers()
-    })
+  async get(path: string, headers?: Headers): Promise<Response> {
+    return await fetch(`${BuildpackRegistryApi.url()}${path}`, {
+      headers: headers ? headers : this.headers(),
+    });
   }
 }
