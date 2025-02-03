@@ -189,7 +189,7 @@ export class BuildpackRegistry {
     }
 
     if (readme.content) {
-      data.readme = `\n${Buffer.from(readme.content, readme.encoding).toString()}`
+      data.readme = `\n${Buffer.from(readme.content, readme.encoding as BufferEncoding).toString()}`
     }
 
     return Result.ok(data)
