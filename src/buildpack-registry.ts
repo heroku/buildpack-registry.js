@@ -1,8 +1,10 @@
-import {Result} from 'true-myth'
+import { Result } from 'true-myth'
 
-import {BuildpackBody, BuildpackRegistryApi as Api, Category, HeaderOptions, ReadmeBody, Response, RevisionBody, RevisionStatus} from './buildpack-registry-api'
+import { BuildpackBody, BuildpackRegistryApi as Api, Category, HeaderOptions, ReadmeBody, Response, RevisionBody, RevisionStatus } from './buildpack-registry-api'
 
-export {BuildpackBody, Category, ReadmeBody, RevisionBody, RevisionStatus}
+import { Headers } from 'node-fetch'
+
+export { BuildpackBody, Category, ReadmeBody, RevisionBody, RevisionStatus }
 
 const BUILDPACK_FORMATTING_MESSAGE = "To specify a buildpack, please format it like the following: namespace/name (e.g. heroku/ruby). Also names can only contain letters, numbers, '_', and '-'."
 
@@ -58,15 +60,41 @@ export class BuildpackRegistry {
     }
   }
 
+  async list(path: string): Promise<Result<Array<any>, ResponseError>> {
+    let page = await this.api.get(path);
+    let items = [];
+    if (page.status === 200 || page.status === 206) {
+      items = await page.json();
+    }
+    while (page.status === 206) {
+      let nextRange = page.headers.get('Next-Range')
+      if (typeof nextRange !== "string") {
+        break;
+      }
+      page = await this.api.get(path, new Headers({ 'Accept-Range': nextRange}));
+      if (page.status === 200 || page.status === 206) {
+        items = [...items, ...await page.json()];
+      }
+    }
+    if (page.status !== 200) {
+        return Result.err({
+          status: page.status,
+          path,
+          description: await page.text()
+        });
+    }
+    return Result.ok(items);
+  }
+
   async publish(buildpack: string, ref: string, token: string, secondFactor?: string): Promise<Result<RevisionBody, ResponseError>> {
-    let options: HeaderOptions = {token}
+    let options: HeaderOptions = { token }
     if (secondFactor !== undefined) {
       options.secondFactor = secondFactor
     }
     let path = `/buildpacks/${encodeURIComponent(buildpack)}/revisions`
     let response = await this.api.post(
       path,
-      {ref},
+      { ref },
       this.api.headers(options))
 
     if (response.status === 200) {
@@ -81,7 +109,7 @@ export class BuildpackRegistry {
   }
 
   async rollback(buildpack: string, token: string, secondFactor?: string): Promise<Result<RevisionBody, ResponseError>> {
-    let options: HeaderOptions = {token}
+    let options: HeaderOptions = { token }
     if (secondFactor !== undefined) {
       options.secondFactor = secondFactor
     }
@@ -123,16 +151,7 @@ export class BuildpackRegistry {
     }
 
     let path = `/buildpacks${queryString}`
-    let response = await this.api.get(path)
-    if (response.status === 200) {
-      return Result.ok(await response.json())
-    } else {
-      return Result.err({
-        status: response.status,
-        path,
-        description: await response.text(),
-      })
-    }
+    return this.list(path);
   }
 
   async info(buildpack: string): Promise<Result<InfoData, ResponseError>> {
@@ -196,7 +215,7 @@ export class BuildpackRegistry {
   }
 
   async archive(buildpack: string, token: string, secondFactor?: string): Promise<Result<BuildpackBody, ResponseError>> {
-    let options: HeaderOptions = {token}
+    let options: HeaderOptions = { token }
     if (secondFactor !== undefined) {
       options.secondFactor = secondFactor
     }
@@ -233,17 +252,7 @@ export class BuildpackRegistry {
 
   async listVersions(buildpack: string): Promise<Result<RevisionBody[], ResponseError>> {
     let path = `/buildpacks/${encodeURIComponent(buildpack)}/revisions`
-    let response = await this.api.get(path)
-
-    if (response.status === 200) {
-      return Result.ok(await response.json())
-    } else {
-      return Result.err({
-        status: response.status,
-        path,
-        description: await response.text()
-      })
-    }
+    return await this.list(path)
   }
 
   async delay(ms: number) {
