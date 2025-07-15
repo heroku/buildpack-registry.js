@@ -1,0 +1,12 @@
+{
+  "extension": ["ts"],
+  "spec": "test/**/*.test.ts",
+  "require": ["ts-node/register", 
+    "source-map-support/register",
+    "test/helpers/init.js"],
+  "package": "package.json",
+  "reporter": "spec",
+  "timeout": 5000,
+  "recursive": true,
+  "watchExtension": "ts"
+}

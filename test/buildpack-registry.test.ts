@@ -1,5 +1,5 @@
 import {expect} from 'chai'
-import * as nock from 'nock'
+import nock from 'nock'
 nock.disableNetConnect()
 
 import {BuildpackRegistry} from '../src/buildpack-registry'

@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
     "declaration": true,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "module": "commonjs",
-    "outDir": "./dist",
+    "module": "CommonJS",
+    "outDir": "dist",
     "pretty": true,
-    "rootDirs": [
-      "./src"
-    ],
+    "rootDirs": ["./src"],
     "strict": true,
     "target": "es2017"
   },
