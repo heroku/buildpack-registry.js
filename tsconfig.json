@@ -2,15 +2,16 @@
   "compilerOptions": {
     "declaration": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "module": "CommonJS",
     "outDir": "dist",
-    "rootDirs": ["src"],
+    "pretty": true,
+    "rootDirs": ["./src"],
     "strict": true,
-    "target": "ESNext",
-    "skipLibCheck": true
+    "target": "es2017"
   },
   "include": [
-    "src/**/*"
+    "./src/**/*"
   ]
 }
