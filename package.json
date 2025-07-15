@@ -21,14 +21,14 @@
   "homepage": "https://github.com/heroku/buildpack-registry.js#readme",
   "devDependencies": {
     "@types/chai": "^4.3",
-    "@types/mocha": "^5.2.5",
+    "@types/mocha": "^10",
     "@types/node": "^20.14.8",
     "@types/node-fetch": "^2.1.2",
     "chai": "^4.3",
-    "mocha": "^5",
+    "mocha": "^10",
     "nock": "^13.3",
-    "nyc": "^11",
-    "ts-node": "^6",
+    "nyc": "^15",
+    "ts-node": "^10",
     "tslint": "^5.11.0",
     "typescript": "^5.7"
   },
@@ -41,6 +41,5 @@
   },
   "files": [
     "/dist"
-  ],
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  ]
 }
