@@ -1,0 +1,10 @@
+channels:
+  master:
+    branch: master
+    prerelease: false
+    npm-tag: latest
+  beta:
+    branch: beta
+    prerelease: true
+    prerelease-type: beta
+    npm-tag: beta
