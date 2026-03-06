@@ -10,4 +10,4 @@ export {
   RevisionStatus,
 } from './buildpack-registry'
 
-export {Fixture} from './test/helpers/fixture'
+export {Fixture} from '../test/helpers/fixture'
