@@ -136,3 +136,43 @@ describe('buildpack-registry#info', () => {
     expect(result.unsafelyUnwrap().support).to.equal('Unsupported by author')
   })
 })
+
+describe('buildpack-registry#publish', () => {
+  it('succeeds with 200 status', async function () {
+    nock('https://buildpack-registry.heroku.com')
+      .post('/buildpacks/hone%2Ftest/revisions')
+      .reply(200, Fixture.revision())
+
+    let registry = new BuildpackRegistry()
+    let result = await registry.publish('hone/test', 'main', 'fake-token')
+
+    expect(result.isOk()).to.be.true
+    expect(result.unsafelyUnwrap().id).to.equal('8de70dbe-e862-4d51-b906-123ef3bf2fc5')
+  })
+
+  it('succeeds with 201 status', async function () {
+    nock('https://buildpack-registry.heroku.com')
+      .post('/buildpacks/hone%2Ftest/revisions')
+      .reply(201, Fixture.revision())
+
+    let registry = new BuildpackRegistry()
+    let result = await registry.publish('hone/test', 'main', 'fake-token')
+
+    expect(result.isOk()).to.be.true
+    expect(result.unsafelyUnwrap().id).to.equal('8de70dbe-e862-4d51-b906-123ef3bf2fc5')
+  })
+
+  it('returns error for non-2xx status', async function () {
+    nock('https://buildpack-registry.heroku.com')
+      .post('/buildpacks/hone%2Ftest/revisions')
+      .reply(422, 'A release is already pending!')
+
+    let registry = new BuildpackRegistry()
+    let result = await registry.publish('hone/test', 'main', 'fake-token')
+
+    expect(result.isErr()).to.be.true
+    let error = result.unsafelyUnwrapErr()
+    expect(error.status).to.equal(422)
+    expect(error.description).to.equal('A release is already pending!')
+  })
+})
