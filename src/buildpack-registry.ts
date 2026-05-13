@@ -69,7 +69,7 @@ export class BuildpackRegistry {
       {ref},
       this.api.headers(options))
 
-    if (response.status === 200) {
+    if (response.status >= 200 && response.status < 300) {
       return Result.ok(await response.json())
     } else {
       return Result.err({
