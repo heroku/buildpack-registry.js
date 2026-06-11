@@ -35,12 +35,9 @@
     "true-myth": "^2.0.0"
   },
   "engines": {
-    "node": ">= 8.0.0"
+    "node": ">= 20"
   },
   "files": [
     "/dist"
-  ],
-  "resolutions": {
-    "serialize-javascript": "^7.0.3"
-  }
+  ]
 }
