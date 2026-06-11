@@ -28,7 +28,7 @@ export type InfoData = {
 
 export class BuildpackRegistry {
   static isValidBuildpackSlug(buildpack: string): Result<boolean, string> {
-    let nameParts = buildpack.split('/')
+    const nameParts = buildpack.split('/')
 
     if (nameParts.length === 2 && nameParts[0].length > 0 && nameParts[1].length > 0 && /^[a-z0-9][a-z0-9_\-]*$/i.exec(nameParts[1])) {
       return Result.ok(true)
@@ -44,10 +44,10 @@ export class BuildpackRegistry {
   }
 
   async requiresTwoFactor(buildpack: string): Promise<Result<boolean, ResponseError>> {
-    let path = `/buildpacks/${encodeURIComponent(buildpack)}`
-    let response = await this.api.get(path)
+    const path = `/buildpacks/${encodeURIComponent(buildpack)}`
+    const response = await this.api.get(path)
     if (response.status === 200) {
-      let body = await response.json()
+      const body = await response.json()
       return Result.ok(body.two_factor_authentication)
     } else {
       return Result.err({
@@ -59,12 +59,12 @@ export class BuildpackRegistry {
   }
 
   async publish(buildpack: string, ref: string, token: string, secondFactor?: string): Promise<Result<RevisionBody, ResponseError>> {
-    let options: HeaderOptions = {token}
+    const options: HeaderOptions = {token}
     if (secondFactor !== undefined) {
       options.secondFactor = secondFactor
     }
-    let path = `/buildpacks/${encodeURIComponent(buildpack)}/revisions`
-    let response = await this.api.post(
+    const path = `/buildpacks/${encodeURIComponent(buildpack)}/revisions`
+    const response = await this.api.post(
       path,
       {ref},
       this.api.headers(options))
@@ -81,13 +81,13 @@ export class BuildpackRegistry {
   }
 
   async rollback(buildpack: string, token: string, secondFactor?: string): Promise<Result<RevisionBody, ResponseError>> {
-    let options: HeaderOptions = {token}
+    const options: HeaderOptions = {token}
     if (secondFactor !== undefined) {
       options.secondFactor = secondFactor
     }
 
-    let path = `/buildpacks/${encodeURIComponent(buildpack)}/actions/rollback`
-    let response = await this.api.post(
+    const path = `/buildpacks/${encodeURIComponent(buildpack)}/actions/rollback`
+    const response = await this.api.post(
       path,
       undefined,
       this.api.headers(options))
@@ -122,8 +122,8 @@ export class BuildpackRegistry {
       queryString = `?${queryParams.join('&')}`
     }
 
-    let path = `/buildpacks${queryString}`
-    let response = await this.api.get(path)
+    const path = `/buildpacks${queryString}`
+    const response = await this.api.get(path)
     if (response.status === 200) {
       return Result.ok(await response.json())
     } else {
@@ -145,15 +145,15 @@ export class BuildpackRegistry {
         description: await response.text(),
       })
     }
-    let bp_body = await response.json()
+    const bp_body = await response.json()
 
-    let result = await this.listVersions(buildpack)
+    const result = await this.listVersions(buildpack)
     if (result.isErr()) {
       return Result.err(result.unsafelyUnwrapErr())
     }
 
-    let revisions = result.unsafelyUnwrap()
-    let revision = revisions.sort((a: RevisionBody, b: RevisionBody) => {
+    const revisions = result.unsafelyUnwrap()
+    const revision = revisions.sort((a: RevisionBody, b: RevisionBody) => {
       return a.release > b.release ? -1 : 1
     })[0]
 
@@ -166,9 +166,9 @@ export class BuildpackRegistry {
         description: await response.text()
       })
     }
-    let readme: ReadmeBody = await response.json()
+    const readme: ReadmeBody = await response.json()
 
-    let data: InfoData = {
+    const data: InfoData = {
       description: bp_body.description,
       category: bp_body.category,
       license: revision.license
@@ -196,12 +196,12 @@ export class BuildpackRegistry {
   }
 
   async archive(buildpack: string, token: string, secondFactor?: string): Promise<Result<BuildpackBody, ResponseError>> {
-    let options: HeaderOptions = {token}
+    const options: HeaderOptions = {token}
     if (secondFactor !== undefined) {
       options.secondFactor = secondFactor
     }
-    let path = `/buildpacks/${encodeURIComponent(buildpack)}/actions/archive`
-    let response = await this.api.post(path, undefined, this.api.headers(options))
+    const path = `/buildpacks/${encodeURIComponent(buildpack)}/actions/archive`
+    const response = await this.api.post(path, undefined, this.api.headers(options))
     if (response.status === 200) {
       return Result.ok(await response.json())
     } else {
@@ -214,8 +214,8 @@ export class BuildpackRegistry {
   }
 
   async revisionInfo(buildpack: string, revision_id: string): Promise<Result<RevisionBody, ResponseError>> {
-    let path = `/buildpacks/${encodeURIComponent(buildpack)}/revisions/${encodeURIComponent(revision_id)}`
-    let response = await this.api.get(path)
+    const path = `/buildpacks/${encodeURIComponent(buildpack)}/revisions/${encodeURIComponent(revision_id)}`
+    const response = await this.api.get(path)
     if (response.status === 200) {
       return Result.ok(await response.json())
     } else {
@@ -232,8 +232,8 @@ export class BuildpackRegistry {
   }
 
   async listVersions(buildpack: string): Promise<Result<RevisionBody[], ResponseError>> {
-    let path = `/buildpacks/${encodeURIComponent(buildpack)}/revisions`
-    let response = await this.api.get(path)
+    const path = `/buildpacks/${encodeURIComponent(buildpack)}/revisions`
+    const response = await this.api.get(path)
 
     if (response.status === 200) {
       return Result.ok(await response.json())
@@ -247,21 +247,18 @@ export class BuildpackRegistry {
   }
 
   async delay(ms: number) {
-    // Disable lint is Temporary
-    // until this issue is resolved https://github.com/Microsoft/tslint-microsoft-contrib/issues/355#issuecomment-407209401
-    // tslint:disable-next-line no-string-based-set-timeout
     return new Promise(resolve => setTimeout(resolve, ms))
   }
 
   async waitForRelease(buildpack_id: string, revision_id: string): Promise<RevisionStatus> {
     let status: RevisionStatus = 'failed'
     let status_count = 0
-    let running = true
+    const running = true
     while (running) {
       status_count += 1
-      let result = await this.revisionInfo(buildpack_id, revision_id)
+      const result = await this.revisionInfo(buildpack_id, revision_id)
       if (result.isOk()) {
-        let revision = result.unsafelyUnwrap()
+        const revision = result.unsafelyUnwrap()
         status = revision.status
         if (status !== 'pending') {
           break

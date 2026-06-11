@@ -8,6 +8,7 @@
     "outDir": "dist",
     "pretty": true,
     "rootDirs": ["./src"],
+    "skipLibCheck": true,
     "strict": true,
     "target": "es2017"
   },

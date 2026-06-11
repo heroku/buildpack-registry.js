@@ -85,7 +85,7 @@ export class BuildpackRegistryApi {
   }
 
   headers(options: HeaderOptions = {}): Headers {
-    let defaultHeaders: {[property: string]: string} = {
+    const defaultHeaders: {[property: string]: string} = {
       Accept: 'application/vnd.heroku+json; version=3.buildpack-registry',
       'Content-Type': 'application/json'
     }
@@ -98,7 +98,7 @@ export class BuildpackRegistryApi {
     }
 
     if (process.env.HEROKU_HEADERS) {
-      let herokuHeaders = JSON.parse(process.env.HEROKU_HEADERS)
+      const herokuHeaders = JSON.parse(process.env.HEROKU_HEADERS)
       return new Headers({...defaultHeaders, herokuHeaders})
     } else {
       return new Headers(defaultHeaders)
@@ -106,7 +106,7 @@ export class BuildpackRegistryApi {
   }
 
   async post(path: string, body?: IBody, headers?: Headers): Promise<Response> {
-    let options: RequestInit = {
+    const options: RequestInit = {
       method: 'POST',
       headers: headers ? headers : this.headers(),
     }

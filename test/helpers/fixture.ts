@@ -2,7 +2,7 @@ import {BuildpackBody, ReadmeBody, RevisionBody} from '../../src/buildpack-regis
 
 export namespace Fixture {
   export function buildpack(options?: Partial<BuildpackBody>): BuildpackBody {
-    let base: BuildpackBody = {
+    const base: BuildpackBody = {
       id: '3ef8f543-b953-4a26-b410-8807d1b45eb1',
       name: 'scala',
       created_at: new Date(),
@@ -44,7 +44,7 @@ export namespace Fixture {
   }
 
   export function revision(options?: Partial<RevisionBody>): RevisionBody {
-    let base: RevisionBody = {
+    const base: RevisionBody = {
       id: '8de70dbe-e862-4d51-b906-123ef3bf2fc5',
       buildpack_id: '71a3c00a-d6c7-4393-94c5-d5d71531720e',
       published_by_email: undefined,
@@ -68,7 +68,7 @@ export namespace Fixture {
   }
 
   export function readme(options?: Partial<ReadmeBody>): ReadmeBody {
-    let base: ReadmeBody = {
+    const base: ReadmeBody = {
       content: 'IyBIZXJva3UgRXhlYyBCdWlsZHBhY2sKClRoaXMgaXMgYSBbSGVyb2t1IEJ1\naWxkcGFja10oaHR0cHM6Ly9kZXZjZW50ZXIuaGVyb2t1LmNvbS9hcnRpY2xl\ncy9idWlsZHBhY2tzKQp0aGF0IHdvcmtzIHdpdGggdGhlIFtIZXJva3UgRXhl\nY10oaHR0cHM6Ly9kZXZjZW50ZXIuaGVyb2t1LmNvbS9hcnRpY2xlcy9oZXJv\na3UtZXhlYykgZmVhdHVyZS4K\n',
       encoding: 'base64',
       sha: 'a5e1e5f5eb76095087b32b31caf5ccaee0c2cae6'
