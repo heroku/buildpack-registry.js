@@ -32,7 +32,8 @@
   },
   "dependencies": {
     "node-fetch": "^2.2.0",
-    "true-myth": "^2.0.0"
+    "true-myth": "^2.0.0",
+    "tslib": "^2.8.1"
   },
   "engines": {
     "node": ">= 20"
