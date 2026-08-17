@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/heroku/buildpack-registry.js/compare/buildpack-registry-v1.0.3...buildpack-registry-v1.0.4) (2026-08-17)
+
+
+### Dependencies
+
+* bump brace-expansion and eslint ([#47](https://github.com/heroku/buildpack-registry.js/issues/47)) ([8c97cbd](https://github.com/heroku/buildpack-registry.js/commit/8c97cbd6fa7161d87eb4e9ec47ae1be1de4fbde5))
+
 ## [1.0.3](https://github.com/heroku/buildpack-registry.js/compare/buildpack-registry-v1.0.2...buildpack-registry-v1.0.3) (2026-07-14)
 
 
