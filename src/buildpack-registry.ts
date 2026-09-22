@@ -148,11 +148,11 @@ export class BuildpackRegistry {
     const bp_body = await response.json()
 
     const result = await this.listVersions(buildpack)
-    if (result.isErr()) {
-      return Result.err(result.unsafelyUnwrapErr())
+    if (result.isErr) {
+      return Result.err(result.error)
     }
 
-    const revisions = result.unsafelyUnwrap()
+    const revisions = result.value
     const revision = revisions.sort((a: RevisionBody, b: RevisionBody) => {
       return a.release > b.release ? -1 : 1
     })[0]
@@ -257,8 +257,8 @@ export class BuildpackRegistry {
     while (running) {
       status_count += 1
       const result = await this.revisionInfo(buildpack_id, revision_id)
-      if (result.isOk()) {
-        const revision = result.unsafelyUnwrap()
+      if (result.isOk) {
+        const revision = result.value
         status = revision.status
         if (status !== 'pending') {
           break
