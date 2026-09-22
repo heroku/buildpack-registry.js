@@ -17,7 +17,7 @@ describe('buildpack-registry#requiresTwoFactor', () => {
     const registry = new BuildpackRegistry()
     const result = await registry.requiresTwoFactor('hone/test')
 
-    expect(result.isOk()).toBe(true)
+    expect(result.isOk).toBe(true)
     expect(result.unwrapOr(false)).toBe(true)
   })
 
@@ -31,7 +31,7 @@ describe('buildpack-registry#requiresTwoFactor', () => {
     const registry = new BuildpackRegistry()
     const result = await registry.requiresTwoFactor('hone/test')
 
-    expect(result.isOk()).toBe(true)
+    expect(result.isOk).toBe(true)
     expect(result.unwrapOr(true)).toBe(false)
   })
 
@@ -43,7 +43,7 @@ describe('buildpack-registry#requiresTwoFactor', () => {
     const registry = new BuildpackRegistry()
     const result = await registry.requiresTwoFactor('hone/test')
 
-    expect(result.isErr()).toBe(true)
+    expect(result.isErr).toBe(true)
   })
 })
 
@@ -65,8 +65,10 @@ describe('buildpack-registry#info', () => {
     const registry = new BuildpackRegistry()
     const result = await registry.info('hone/test')
 
-    expect(result.isOk()).toBe(true)
-    expect(result.unsafelyUnwrap().support).toBe('foo@heroku.com')
+    expect(result.isOk).toBe(true)
+    if (result.isOk) {
+      expect(result.value.support).toBe('foo@heroku.com')
+    }
   })
 
   it('returns support github url', async function () {
@@ -91,8 +93,10 @@ describe('buildpack-registry#info', () => {
     const registry = new BuildpackRegistry()
     const result = await registry.info('hone/test')
 
-    expect(result.isOk()).toBe(true)
-    expect(result.unsafelyUnwrap().support).toBe('https://github.com/hone/test/issues')
+    expect(result.isOk).toBe(true)
+    if (result.isOk) {
+      expect(result.value.support).toBe('https://github.com/hone/test/issues')
+    }
   })
 
   it('returns support website', async function () {
@@ -111,8 +115,10 @@ describe('buildpack-registry#info', () => {
     const registry = new BuildpackRegistry()
     const result = await registry.info('hone/test')
 
-    expect(result.isOk()).toBe(true)
-    expect(result.unsafelyUnwrap().support).toBe('https://support.heroku.com')
+    expect(result.isOk).toBe(true)
+    if (result.isOk) {
+      expect(result.value.support).toBe('https://support.heroku.com')
+    }
   })
 
   it('returns unsupported', async function () {
@@ -132,8 +138,10 @@ describe('buildpack-registry#info', () => {
     const registry = new BuildpackRegistry()
     const result = await registry.info('hone/test')
 
-    expect(result.isOk()).toBe(true)
-    expect(result.unsafelyUnwrap().support).toBe('Unsupported by author')
+    expect(result.isOk).toBe(true)
+    if (result.isOk) {
+      expect(result.value.support).toBe('Unsupported by author')
+    }
   })
 })
 
@@ -146,8 +154,10 @@ describe('buildpack-registry#publish', () => {
     const registry = new BuildpackRegistry()
     const result = await registry.publish('hone/test', 'main', 'fake-token')
 
-    expect(result.isOk()).toBe(true)
-    expect(result.unsafelyUnwrap().id).toBe('8de70dbe-e862-4d51-b906-123ef3bf2fc5')
+    expect(result.isOk).toBe(true)
+    if (result.isOk) {
+      expect(result.value.id).toBe('8de70dbe-e862-4d51-b906-123ef3bf2fc5')
+    }
   })
 
   it('succeeds with 201 status', async function () {
@@ -158,8 +168,10 @@ describe('buildpack-registry#publish', () => {
     const registry = new BuildpackRegistry()
     const result = await registry.publish('hone/test', 'main', 'fake-token')
 
-    expect(result.isOk()).toBe(true)
-    expect(result.unsafelyUnwrap().id).toBe('8de70dbe-e862-4d51-b906-123ef3bf2fc5')
+    expect(result.isOk).toBe(true)
+    if (result.isOk) {
+      expect(result.value.id).toBe('8de70dbe-e862-4d51-b906-123ef3bf2fc5')
+    }
   })
 
   it('returns error for non-2xx status', async function () {
@@ -170,9 +182,11 @@ describe('buildpack-registry#publish', () => {
     const registry = new BuildpackRegistry()
     const result = await registry.publish('hone/test', 'main', 'fake-token')
 
-    expect(result.isErr()).toBe(true)
-    const error = result.unsafelyUnwrapErr()
-    expect(error.status).toBe(422)
-    expect(error.description).toBe('A release is already pending!')
+    expect(result.isErr).toBe(true)
+    if (result.isErr) {
+      const error = result.error
+      expect(error.status).toBe(422)
+      expect(error.description).toBe('A release is already pending!')
+    }
   })
 })
