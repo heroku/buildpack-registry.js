@@ -23,12 +23,12 @@
   "devDependencies": {
     "@types/node": "^20.14.8",
     "@types/node-fetch": "^2.1.2",
-    "@vitest/coverage-v8": "^4.0.0",
+    "@vitest/coverage-v8": "^4.1.11",
     "eslint": "^10.7.0",
     "nock": "^14.0",
     "typescript": "^5.7",
     "typescript-eslint": "^8.0.0",
-    "vitest": "^4.0.0"
+    "vitest": "^4.1.11"
   },
   "dependencies": {
     "node-fetch": "^2.2.0",
