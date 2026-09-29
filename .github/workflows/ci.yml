@@ -2,10 +2,9 @@ name: CI Test Suite
 
 on:
   push:
-    # Only run on pushes to main branches and long-lived feature branches
-    # PRs will trigger via pull_request event to avoid duplicate runs
+    # Only run on pushes to main; PRs trigger via pull_request to avoid duplicate runs
     branches:
-      - master
+      - main
   pull_request:
   workflow_dispatch:
 
@@ -26,5 +25,24 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Unit tests and lint
-        run: npm test
+      - name: Unit tests
+        run: npm run test:coverage
+
+  # Lint and the test typecheck run once on a single runner (identical output on
+  # every OS/node combo), concurrently with the test matrix. These are the checks
+  # that previously lived in the `posttest` hook.
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Use Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22.x
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Typecheck tests
+        run: npm run typecheck:test
