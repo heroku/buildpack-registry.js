@@ -21,6 +21,7 @@ export type InfoData = {
   license: string,
   category?: string,
   description: string,
+  archived: boolean,
   readme?: string,
   support?: string,
   source?: string,
@@ -171,6 +172,7 @@ export class BuildpackRegistry {
     const data: InfoData = {
       description: bp_body.description,
       category: bp_body.category,
+      archived: bp_body.archived,
       license: revision.license
     }
 

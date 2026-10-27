@@ -40,6 +40,7 @@ export type BuildpackBody = {
   description: string,
   category: Category,
   two_factor_authentication: boolean,
+  archived: boolean,
   blob_url: string,
   source:
   {

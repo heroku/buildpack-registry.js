@@ -143,6 +143,24 @@ describe('buildpack-registry#info', () => {
       expect(result.value.support).toBe('Unsupported by author')
     }
   })
+
+  it('returns archived status', async function () {
+    nock('https://buildpack-registry.heroku.com')
+      .get('/buildpacks/hone%2Ftest')
+      .reply(200, Fixture.buildpack({archived: true}))
+      .get('/buildpacks/hone%2Ftest/revisions')
+      .reply(200, [Fixture.revision()])
+      .get('/buildpacks/hone%2Ftest/readme')
+      .reply(200, Fixture.readme())
+
+    const registry = new BuildpackRegistry()
+    const result = await registry.info('hone/test')
+
+    expect(result.isOk).toBe(true)
+    if (result.isOk) {
+      expect(result.value.archived).toBe(true)
+    }
+  })
 })
 
 describe('buildpack-registry#publish', () => {
