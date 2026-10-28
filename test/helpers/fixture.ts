@@ -10,6 +10,7 @@ export namespace Fixture {
       description: 'Official Heroku Buildpack for Scala',
       category: 'languages',
       two_factor_authentication: false,
+      archived: false,
       blob_url: 'https://buildpack-registry.s3.amazonaws.com/buildpacks/heroku/scala.tgz',
       source:
       {
