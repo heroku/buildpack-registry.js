@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/heroku/buildpack-registry.js/compare/buildpack-registry-v1.0.4...buildpack-registry-v1.1.0) (2026-10-30)
+
+
+### Features
+
+* include `archived` in buildpack info ([#71](https://github.com/heroku/buildpack-registry.js/issues/71)) ([89fc62a](https://github.com/heroku/buildpack-registry.js/commit/89fc62ab6e05703ec8ebb3e8bfee17832a47705f))
+
+
+### Bug Fixes
+
+* rename release channel master-&gt;main in release-channels.yml ([#72](https://github.com/heroku/buildpack-registry.js/issues/72)) ([23be363](https://github.com/heroku/buildpack-registry.js/commit/23be363f48da54bb6377e696bf0405114aca7fc2))
+
 ## [1.0.4](https://github.com/heroku/buildpack-registry.js/compare/buildpack-registry-v1.0.3...buildpack-registry-v1.0.4) (2026-09-23)
 
 
