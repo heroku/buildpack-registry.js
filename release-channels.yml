@@ -1,6 +1,6 @@
 channels:
-  master:
-    branch: master
+  main:
+    branch: main
     prerelease: false
     npm-tag: latest
   beta:
