@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/heroku/buildpack-registry.js/compare/buildpack-registry-v1.1.0...buildpack-registry-v1.1.1) (2026-11-09)
+
+
+### Dependencies
+
+* bump tslib from 2.8.1 to 2.9.1 ([#75](https://github.com/heroku/buildpack-registry.js/issues/75)) ([14c6455](https://github.com/heroku/buildpack-registry.js/commit/14c64558ff70c9b9f007f1b3d0af665d388c93fc))
+
 ## [1.1.0](https://github.com/heroku/buildpack-registry.js/compare/buildpack-registry-v1.0.4...buildpack-registry-v1.1.0) (2026-10-30)
 
 
