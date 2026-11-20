@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/heroku/buildpack-registry.js/compare/buildpack-registry-v1.1.1...buildpack-registry-v1.1.2) (2026-11-20)
+
+
+### Dependencies
+
+* bump minimatch, eslint and typescript-eslint ([#79](https://github.com/heroku/buildpack-registry.js/issues/79)) ([e050618](https://github.com/heroku/buildpack-registry.js/commit/e050618f4b2fa6a4f0e05c11c18105621cabe3cf))
+
 ## [1.1.1](https://github.com/heroku/buildpack-registry.js/compare/buildpack-registry-v1.1.0...buildpack-registry-v1.1.1) (2026-11-09)
 
 
